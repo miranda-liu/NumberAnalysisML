@@ -29,7 +29,7 @@ class Network(object):
                 # the np.dot returns the dot product of w and a, then adds b
         return a
     
-    def SGD(self, training_data, epochs, mini_batch_size, eta, test_data=None):
+    def sgd(self, training_data, epochs, mini_batch_size, eta, test_data=None):
         # the stochastic gradient descent function
         # training_data is a list of tuples that represent the training input and the desired outputs
         # epochs --> each completion is an epoch
@@ -58,7 +58,7 @@ class Network(object):
                                 # updates the network weights and biases according to a single iteration of gradient descent
                                 #   using only training data in mini_batch
             if test_data:
-                print("Epoch {}: {} / {}".format(j, self.evaluate(test_data), n_test))
+                print("Epoch {}: {} / {}".format(j, self.evaluate(test_data), n_test));
             else:
                 print("Epoch {} complete".format(j))
                 # FILL/FIGURE OUT WHAT THIS DOES STILL
@@ -82,7 +82,7 @@ class Network(object):
             nabla_w = [nw+dnw for nw, dnw in zip(nabla_w, delta_nabla_w)]
         self.weights = [w-(eta/len(mini_batch))*nw
             for w, nw in zip(self.weights, nabla_w)]
-        self.biases = [b-(eta/len(mini_batch))
+        self.biases = [b-(eta/len(mini_batch))*nb
             for b, nb in zip(self.biases, nabla_b)]
     
     def evaluate(self, test_data): # returns the number of test outputs for which the neural network
