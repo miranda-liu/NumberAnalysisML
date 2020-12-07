@@ -1,6 +1,9 @@
 import random
 import numpy as np
 
+# graph inputs and outputs for the data
+# graph networks: https://graphviz.org/download/ 
+
 class Network(object):
     def __init__(self, sizes): # defining a function that initializes a Network object
                                # sizes is a list that contains the number of neurons in each layer respectively
@@ -71,14 +74,15 @@ class Network(object):
         #      function with respect to the neural network's weights 
         # the mini_batch is a list of tuples (x,y) and eta is the learning rate
         nabla_b = [np.zeros(b.shape) for b in self.biases]
-            # nabla means vector??
+            # nabla means vector
+                # calculating differences/gradients --> steepness
             # np.zeroes() returns a new array of a given shape and type filled with zeros
             # in this case, an array of shape b is returned filled with zeros
         nabla_w = [np.zeros(w.shape) for w in self.weights]
         for x, y in mini_batch: # iterates through each input in mini_batch
             delta_nabla_b, delta_nabla_w = self.backprop(x,y)
                 #backprop invokes the backpropagation algorithm which is a fast way of computing the gradient of the cost function
-            nabla_b = [nb+dnb for nb, dnb in zip(nabla_b, delta_nabla_b)]
+            nabla_b = [nb+dnb for nb, dnb in zip(nabla_b, delta_nabla_b)] # dnb is a small piece of nb
             nabla_w = [nw+dnw for nw, dnw in zip(nabla_w, delta_nabla_w)]
         self.weights = [w-(eta/len(mini_batch))*nw
             for w, nw in zip(self.weights, nabla_w)]
